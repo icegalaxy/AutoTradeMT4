@@ -21,7 +21,7 @@ public class XMLWatcher implements Runnable
 //	static MyFile intraDayXML = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\Intraday.xml");
 //	static MyFile OHLC = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\FHIdata.xml");
 //	static MyFile EMA = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\EMA.xml");
-	static MyFile Stair = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\stair.csv");
+	static MyFile Stair = new MyFile("\\TradeData\\stair.csv");
 	
 //	static MyFile csvLog = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\csvLog " + Global.getToday() + ".csv");
 	static MyFile csvLog;

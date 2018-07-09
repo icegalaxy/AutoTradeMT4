@@ -554,13 +554,13 @@ public class TimeBase {
 //		return rising && acceleating;
 //	}
 
-	public float getMACD() {
-		return ti.getMACD();
-	}
-
-	public float getMACDHistogram() {
-		return ti.getMACDHistogram();
-	}
+//	public float getMACD() {
+//		return ti.getMACD();
+//	}
+//
+//	public float getMACDHistogram() {
+//		return ti.getMACDHistogram();
+//	}
 
 //	public float getQuantity() {
 //		
@@ -574,31 +574,37 @@ public class TimeBase {
 	
 	public EMA getEma5()
 	{
+		EMAs[0].currentEMA = MT4Puller.getEMA(baseMin,5);
 		return EMAs[0];
 	}
 
 	public EMA getEma25()
 	{
+		EMAs[1].currentEMA = MT4Puller.getEMA(baseMin,25);
 		return EMAs[1];
 	}
 
 	public EMA getEma50()
 	{
+		EMAs[2].currentEMA = MT4Puller.getEMA(baseMin,50);
 		return EMAs[2];
 	}
 
 	public EMA getEma100()
 	{
+		EMAs[3].currentEMA = MT4Puller.getEMA(baseMin,100);
 		return EMAs[3];
 	}
 
 	public EMA getEma250()
 	{
+		EMAs[4].currentEMA = MT4Puller.getEMA(baseMin,250);
 		return EMAs[4];
 	}
 
 	public EMA getEma1200()
 	{
+		EMAs[5].currentEMA = MT4Puller.getEMA(baseMin,1200);
 		return EMAs[5];
 	}
 
@@ -836,11 +842,11 @@ public class TimeBase {
 
 		private double tempHigh;
 		private double tempLow;
-		private double tempRsiHigh;
-		private double tempRsiLow;
+//		private double tempRsiHigh;
+//		private double tempRsiLow;
 		
 		private double fluctuation;
-		private double rsiFluctuation;
+//		private double rsiFluctuation;
 
 		public HighLow(int periods) {
 			this.periods = periods;
@@ -849,8 +855,8 @@ public class TimeBase {
 		void calculateHighLow() {
 			double periodHigh = 0;
 			double periodLow = 99999;
-			double periodRsiHigh = 0;
-			double periodRsiLow = 100;
+//			double periodRsiHigh = 0;
+//			double periodRsiLow = 100;
 
 			for (int i = candle.size() - 1; i >= candle.size() - periods; i--) {
 				if (i < 0)
@@ -859,10 +865,10 @@ public class TimeBase {
 				if (i == 166) // ����
 					break;
 
-				if (candle.get(i).getRsi() > periodRsiHigh)
-					periodRsiHigh = candle.get(i).getRsi();
-				if (candle.get(i).getRsi() < periodRsiLow)
-					periodRsiLow = candle.get(i).getRsi();
+//				if (candle.get(i).getRsi() > periodRsiHigh)
+//					periodRsiHigh = candle.get(i).getRsi();
+//				if (candle.get(i).getRsi() < periodRsiLow)
+//					periodRsiLow = candle.get(i).getRsi();
 
 				if (candle.get(i).getHigh() > periodHigh)
 					periodHigh = candle.get(i).getHigh();
@@ -874,9 +880,9 @@ public class TimeBase {
 			tempLow = periodLow;
 			fluctuation = periodHigh - periodLow;
 
-			tempRsiHigh = periodRsiHigh;
-			tempRsiLow = periodRsiLow;
-			rsiFluctuation = periodRsiHigh - periodRsiLow;
+//			tempRsiHigh = periodRsiHigh;
+//			tempRsiLow = periodRsiLow;
+//			rsiFluctuation = periodRsiHigh - periodRsiLow;
 
 		}
 
@@ -888,21 +894,21 @@ public class TimeBase {
 			return tempLow;
 		}
 
-		public double getTempRsiHigh() {
-			return tempRsiHigh;
-		}
-
-		public double getTempRsiLow() {
-			return tempRsiLow;
-		}
+//		public double getTempRsiHigh() {
+//			return tempRsiHigh;
+//		}
+//
+//		public double getTempRsiLow() {
+//			return tempRsiLow;
+//		}
 
 		public double getFluctuation() {
 			return fluctuation;
 		}
 
-		public double getRsiFluctuation() {
-			return rsiFluctuation;
-		}
+//		public double getRsiFluctuation() {
+//			return rsiFluctuation;
+//		}
 		
 		
 	}

@@ -38,7 +38,7 @@ public class GetData implements Runnable
 	
 	private ArrayList<HighLow> HLs;
 
-	int[] EMAs = new int[]
+	public static int[] EMAList = new int[]
 	{ 5, 25, 50, 100, 250, 1200 };
 
 	private boolean aohAdded;
@@ -475,7 +475,7 @@ public class GetData implements Runnable
 //					getLongTB().addCandle(getTime(), longData.periodHigh, longData.periodLow, longData.openPt, point,
 //							totalQuantity);
 
-					getLongTB().getMACD();
+//					getLongTB().getMACD();
 					// System.out.println("MACD Histo: "
 					// + getLongTB().getMACDHistogram());
 					longMinutes = 0;

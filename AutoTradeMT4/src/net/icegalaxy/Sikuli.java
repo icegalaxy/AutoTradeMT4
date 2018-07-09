@@ -33,6 +33,8 @@ public class Sikuli {
 //	static Screen sc = new Screen();
 	static Robot robot;
 	
+	static int ticket;
+	
 	public static void makeRobot(){
 		try {
 			robot = new Robot();
@@ -100,6 +102,8 @@ public class Sikuli {
 */
 	
 	
+	
+	
 	public static synchronized boolean longContract(int noOfContracts) {
 		
 		int status = 0;
@@ -109,12 +113,13 @@ public class Sikuli {
 			return false;
 		}
 		
-		if (TimePeriodDecider.nightOpened)
-			status = SPApi.addOrder((byte) 'B',noOfContracts, true);
-		else
-			status = SPApi.addOrder((byte) 'B',noOfContracts, false);
+		//if (TimePeriodDecider.nightOpened)
+//			status = SPApi.addOrder((byte) 'B',noOfContracts, true);
+			ticket = MT4Puller.addOrder(0, 1, Global.getCurrentAsk());
+//		else
+//			status = SPApi.addOrder((byte) 'B',noOfContracts, false);
 		
-		if (status == 0)
+		if (ticket != -1)
 			Global.addLog("Long order sent");
 		else
 		{
@@ -143,12 +148,14 @@ public class Sikuli {
 		}
 
 
-		if (TimePeriodDecider.nightOpened)
-			status = SPApi.addOrder((byte) 'S', noOfContracts, true);
-		else
-			status = SPApi.addOrder((byte) 'S', noOfContracts, false);
+//		if (TimePeriodDecider.nightOpened)
+//			status = SPApi.addOrder((byte) 'S', noOfContracts, true);
+//		else
+//			status = SPApi.addOrder((byte) 'S', noOfContracts, false);
 		
-		if (status == 0)
+		ticket = MT4Puller.addOrder(1, 1, Global.getCurrentBid());
+		
+		if (ticket != -1)
 			Global.addLog("Short order sent");
 		else
 		{
@@ -169,32 +176,16 @@ public class Sikuli {
 	
 	public static synchronized boolean longContract() {
 		
-		int status = 0;
-		
-		int noOfContracts;
-		
-		if (Global.balance > 150)
-			noOfContracts = 2;
-		else
-			noOfContracts = 1;
-
-		if (Global.getNoOfContracts() >= Global.maxContracts) {
-			Global.addLog("> max no. of contract");
-			return false;
-		}
+		int Lots = 1;
 		
 		if (Global.getNoOfContracts() != 0) //means closing, because only main rules are using this method
 		{
-			noOfContracts = Math.abs(Global.getNoOfContracts());		
+			Lots = Math.abs(Global.getNoOfContracts());		
 		}
 
+		ticket = MT4Puller.addOrder(0, Lots, Global.getCurrentAsk());
 		
-		if (TimePeriodDecider.nightOpened)
-			status = SPApi.addOrder((byte) 'B', noOfContracts, true);
-		else
-			status = SPApi.addOrder((byte) 'B', noOfContracts, false);
-		
-		if (status == 0)
+		if (ticket != -1)
 			Global.addLog("Long order sent");
 		else
 		{
@@ -203,9 +194,9 @@ public class Sikuli {
 		}
 		
 		
-			Global.balance -= Global.getCurrentAsk() * noOfContracts;
-			Global.noOfTrades += noOfContracts;
-			Global.setNoOfContracts(Global.getNoOfContracts() + noOfContracts);
+			Global.balance -= Global.getCurrentAsk() * Lots;
+			Global.noOfTrades += Lots;
+			Global.setNoOfContracts(Global.getNoOfContracts() + Lots);
 			if (Global.getNoOfContracts() == 0) { //means closing contract
 				Rules.setBalance(0);
 			}
@@ -238,12 +229,14 @@ public class Sikuli {
 		}
 
 
-		if (TimePeriodDecider.nightOpened)
-			status = SPApi.addOrder((byte) 'S', noOfContracts, true);
-		else
-			status = SPApi.addOrder((byte) 'S', noOfContracts, false);
+//		if (TimePeriodDecider.nightOpened)
+//			status = SPApi.addOrder((byte) 'S', noOfContracts, true);
+//		else
+//			status = SPApi.addOrder((byte) 'S', noOfContracts, false);
 		
-		if (status == 0)
+		ticket = MT4Puller.addOrder(1, 1, Global.getCurrentBid());
+		
+		if (ticket != -1)
 			Global.addLog("Short order sent");
 		else
 		{

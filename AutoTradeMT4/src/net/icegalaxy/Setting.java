@@ -112,20 +112,20 @@ public class Setting extends JFrame {
 				
 				XMLWatcher.csvLog.writeToFile();
 				
-				SPApi.init();
-				
-				
-				
-				
-				while (getDayOfWeek() == 1 || getDayOfWeek() == 7){
-					System.out.println("Sunday or Saturday " + GetData.getTimeInt() + " Sleep for 1 hr");
-					try {
-						Thread.sleep(3600000);
-					} catch (InterruptedException e2) {
-						e2.printStackTrace();
-					}
-					
-				}
+//				SPApi.init();
+//				
+//				
+//				
+//				
+//				while (getDayOfWeek() == 1 || getDayOfWeek() == 7){
+//					System.out.println("Sunday or Saturday " + GetData.getTimeInt() + " Sleep for 1 hr");
+//					try {
+//						Thread.sleep(3600000);
+//					} catch (InterruptedException e2) {
+//						e2.printStackTrace();
+//					}
+//					
+//				}
 
 				while (getTimeInt() > 1010000 || getTimeInt() < 90001){
 					System.out.println(getTimeInt() + ": Sleep for 5 min");
@@ -136,9 +136,14 @@ public class Setting extends JFrame {
 					}
 					
 				}
+				
+				MT4Puller mt4 = new MT4Puller();
+				
+				Thread tMt4 = new Thread(mt4);
+				tMt4.start();
 			
 				
-				Global.setCurrentPoint(SPApi.getAPIPrice().Last[0]); //don't know if this is necessary, try to test if the API is functioning
+				//Global.setCurrentPoint(SPApi.getAPIPrice().Last[0]); //don't know if this is necessary, try to test if the API is functioning
 				
 				runThreads();
 			}

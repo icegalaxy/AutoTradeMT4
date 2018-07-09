@@ -6,6 +6,7 @@ public class EMA
 {
 	private ArrayList<Double> EMAs;
 	private int period;
+	public double currentEMA;
 
 	public EMA(double previousDayEMA, int period)
 	{
@@ -19,12 +20,17 @@ public class EMA
 		EMAs.add(getEMA(currentPt));
 	}
 	
+//	public double getEMA(){
+//		
+//		if (EMAs.size() < 1)
+//			return 0;
+//		else
+//			return EMAs.get(EMAs.size()-1);
+//	}
+	
 	public double getEMA(){
 		
-		if (EMAs.size() < 1)
-			return 0;
-		else
-			return EMAs.get(EMAs.size()-1);
+		return currentEMA;
 	}
 	
 	public double getPreviousEMA(int noOfPeriodBefore)

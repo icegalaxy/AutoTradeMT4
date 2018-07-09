@@ -684,14 +684,14 @@ public abstract class Rules implements Runnable
 		return false;
 	}
 
-	protected float getAGAL()
-	{
-
-		GetData.getShortTB().getRSI(); // ���[�O�y����AGAL�Y���|����
-		return (GetData.getShortTB().getAG() + GetData.getShortTB().getAL()); // �Y���O�׫Y���Y�n�εfShort
-		// Period
-		// ALAG��Ĺ��
-	}
+//	protected float getAGAL()
+//	{
+//
+//		GetData.getShortTB().getRSI(); 
+//		return (GetData.getShortTB().getAG() + GetData.getShortTB().getAL());
+//		// Period
+//		
+//	}
 
 	public void shortContract()
 	{
@@ -810,61 +810,61 @@ public abstract class Rules implements Runnable
 
 	}
 
-	void secondStopEarn()
-	{
-
-		if (Global.getNoOfContracts() > 0)
-		{
-			if (Global.getCurrentPoint() < GetData.getLongTB().getEMA(5))
-			{
-				tempCutLoss = 99999;
-				Global.addLog(className + " StopEarn: Current Pt < EMA5");
-			}
-		} else if (Global.getNoOfContracts() < 0)
-		{
-			if (Global.getCurrentPoint() > GetData.getLongTB().getEMA(5))
-			{
-				tempCutLoss = 0;
-				Global.addLog(className + " StopEarn: Current Pt > EMA5");
-
-			}
-		}
-
-	}
-
-	void thirdStopEarn()
-	{
-
-		if (Global.getNoOfContracts() > 0)
-		{
-			if (GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6))
-			{
-				tempCutLoss = 99999;
-				Global.addLog(className + " StopEarn: EMA5 < EMA6");
-			}
-		} else if (Global.getNoOfContracts() < 0)
-		{
-			if (GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6))
-			{
-				tempCutLoss = 0;
-				Global.addLog(className + " StopEarn: EMA5 > EMA6");
-
-			}
-		}
-
-	}
+//	void secondStopEarn()
+//	{
+//
+//		if (Global.getNoOfContracts() > 0)
+//		{
+//			if (Global.getCurrentPoint() < GetData.getLongTB().getEMA(5))
+//			{
+//				tempCutLoss = 99999;
+//				Global.addLog(className + " StopEarn: Current Pt < EMA5");
+//			}
+//		} else if (Global.getNoOfContracts() < 0)
+//		{
+//			if (Global.getCurrentPoint() > GetData.getLongTB().getEMA(5))
+//			{
+//				tempCutLoss = 0;
+//				Global.addLog(className + " StopEarn: Current Pt > EMA5");
+//
+//			}
+//		}
+//
+//	}
+//
+//	void thirdStopEarn()
+//	{
+//
+//		if (Global.getNoOfContracts() > 0)
+//		{
+//			if (GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6))
+//			{
+//				tempCutLoss = 99999;
+//				Global.addLog(className + " StopEarn: EMA5 < EMA6");
+//			}
+//		} else if (Global.getNoOfContracts() < 0)
+//		{
+//			if (GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6))
+//			{
+//				tempCutLoss = 0;
+//				Global.addLog(className + " StopEarn: EMA5 > EMA6");
+//
+//			}
+//		}
+//
+//	}
 
 	double getCutLossPt()
 	{
-		return getAGAL() * CUTLOSS_FACTOR;
-		// return GetData.getShortTB().getHL15().getFluctuation() /
+//		return getAGAL() * CUTLOSS_FACTOR;
+		return GetData.getShortTB().getHL(15).getFluctuation();
 		// CUTLOSS_FACTOR;
 	}
 
 	double getStopEarnPt()
 	{
-		return getAGAL() * STOPEARN_FACTOR;
-		// return GetData.getShortTB().getHL15().getFluctuation() /
+//		return getAGAL() * STOPEARN_FACTOR;
+		return GetData.getShortTB().getHL(15).getFluctuation();
 		// STOPEARN_FACTOR;
 	}
 
@@ -893,25 +893,25 @@ public abstract class Rules implements Runnable
 
 	public abstract TimeBase getTimeBase();
 
-	boolean maRising(int period)
-	{
-		return getTimeBase().isMARising(period, 1);
-	}
-
-	boolean maDropping(int period)
-	{
-		return getTimeBase().isMADropping(period, 1);
-	}
-
-	boolean emaRising(int period)
-	{
-		return getTimeBase().isEMARising(period, 1);
-	}
-
-	boolean emaDropping(int period)
-	{
-		return getTimeBase().isEMADropping(period, 1);
-	}
+//	boolean maRising(int period)
+//	{
+//		return getTimeBase().isMARising(period, 1);
+//	}
+//
+//	boolean maDropping(int period)
+//	{
+//		return getTimeBase().isMADropping(period, 1);
+//	}
+//
+//	boolean emaRising(int period)
+//	{
+//		return getTimeBase().isEMARising(period, 1);
+//	}
+//
+//	boolean emaDropping(int period)
+//	{
+//		return getTimeBase().isEMADropping(period, 1);
+//	}
 
 	boolean trendReversed()
 	{
@@ -1019,118 +1019,118 @@ public abstract class Rules implements Runnable
 
 	}
 	
-	// Danny �l�ȥ�e�w��V
-	public boolean isUpTrend()
-	{
-		return GetData.getM15TB().getMA(20) > GetData.getM15TB().getEMA(50)
-				&& GetData.getLongTB().getEMA(50) > GetData.getLongTB().getEMA(240);
-//				&& GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6)
-				// && GetData.getM15TB().isMARising(20, 1)
-				// && GetData.getM15TB().isEMARising(50, 1)
-				// && GetData.getLongTB().isEMARising(240, 1)
-//				&& GetData.getLongTB().isEMARising(50, 1);
-	}
+	// Danny
+//	public boolean isUpTrend()
+//	{
+//		return GetData.getM15TB().getMA(20) > GetData.getM15TB().getEma50().getEMA();
+//				&& GetData.getLongTB().getEma50().getEMA() > GetData.getLongTB().getEma250().getEMA();
+////				&& GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6)
+//				// && GetData.getM15TB().isMARising(20, 1)
+//				// && GetData.getM15TB().isEMARising(50, 1)
+//				// && GetData.getLongTB().isEMARising(240, 1)
+////				&& GetData.getLongTB().isEMARising(50, 1);
+//	}
+//
+//	public boolean isDownTrend()
+//	{
+//		return GetData.getM15TB().getMA(20) < GetData.getM15TB().getEMA(50)
+//				&& GetData.getLongTB().getEMA(50) < GetData.getLongTB().getEMA(240);
+////				&& GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6)
+//				// && GetData.getM15TB().isMADropping(20, 1)
+//				// && GetData.getM15TB().isEMADropping(50, 1)
+//				// && GetData.getLongTB().isEMADropping(240, 1)
+////				&& GetData.getLongTB().isEMADropping(50, 1);
+//
+//	}
+//
+//	public boolean isSideWay()
+//	{
+//
+//		return !GetData.getLongTB().isEMARising(50, 1) && !GetData.getLongTB().isEMADropping(50, 1);
+//	}
 
-	public boolean isDownTrend()
-	{
-		return GetData.getM15TB().getMA(20) < GetData.getM15TB().getEMA(50)
-				&& GetData.getLongTB().getEMA(50) < GetData.getLongTB().getEMA(240);
-//				&& GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6)
-				// && GetData.getM15TB().isMADropping(20, 1)
-				// && GetData.getM15TB().isEMADropping(50, 1)
-				// && GetData.getLongTB().isEMADropping(240, 1)
-//				&& GetData.getLongTB().isEMADropping(50, 1);
+//	void reverseOHLC(double ohlc)
+//	{
+//		if (Global.getCurrentPoint() <= ohlc + 5 && Global.getCurrentPoint() >= ohlc - 5)
+//		{
+//
+//			Global.addLog(className + ": Entered waiting zone");
+//			Global.addLog("MA20(M15): " + GetData.getM15TB().getMA(20));
+//			Global.addLog("EMA50(M15): " + GetData.getM15TB().getEMA(50));
+//			Global.addLog("EMA50(M5): " + GetData.getLongTB().getEMA(50));
+//			Global.addLog("EMA240(M5): " + GetData.getLongTB().getEMA(240));
+//			Global.addLog("");
+//
+//			while (Global.getCurrentPoint() <= ohlc + 20 && Global.getCurrentPoint() >= ohlc - 20)
+//				sleep(waitingTime);
+//
+//			if (Global.getCurrentPoint() > ohlc + 20 && isSideWay())
+//			{
+//				shortContract();
+//			} else if (Global.getCurrentPoint() < ohlc - 20 && isSideWay())
+//			{
+//				longContract();
+//			}
+//		}
+//	}
 
-	}
-
-	public boolean isSideWay()
-	{
-
-		return !GetData.getLongTB().isEMARising(50, 1) && !GetData.getLongTB().isEMADropping(50, 1);
-	}
-
-	void reverseOHLC(double ohlc)
-	{
-		if (Global.getCurrentPoint() <= ohlc + 5 && Global.getCurrentPoint() >= ohlc - 5)
-		{
-
-			Global.addLog(className + ": Entered waiting zone");
-			Global.addLog("MA20(M15): " + GetData.getM15TB().getMA(20));
-			Global.addLog("EMA50(M15): " + GetData.getM15TB().getEMA(50));
-			Global.addLog("EMA50(M5): " + GetData.getLongTB().getEMA(50));
-			Global.addLog("EMA240(M5): " + GetData.getLongTB().getEMA(240));
-			Global.addLog("");
-
-			while (Global.getCurrentPoint() <= ohlc + 20 && Global.getCurrentPoint() >= ohlc - 20)
-				sleep(waitingTime);
-
-			if (Global.getCurrentPoint() > ohlc + 20 && isSideWay())
-			{
-				shortContract();
-			} else if (Global.getCurrentPoint() < ohlc - 20 && isSideWay())
-			{
-				longContract();
-			}
-		}
-	}
-
-	void openOHLC(double ohlc)
-	{
-		if (Math.abs(Global.getCurrentPoint() - ohlc) <= 5)
-		{
-
-			Global.addLog(className + ": Entered waiting zone");
-
-			waitForANewCandle();
-
-			// wait until it standing firmly
-			while (Math.abs(GetData.getLongTB().getLatestCandle().getClose() - ohlc) <= 5)
-				sleep(waitingTime);
-
-			Global.addLog(className + ": Waiting for a pull back");
-			// in case it get too fast, wait until it come back, just like
-			// second corner but a little bit earlier
-			while (Math.abs(Global.getCurrentPoint() - ohlc) > 5)
-			{
-				if (Math.abs(Global.getCurrentPoint() - ohlc) > 50)
-				{
-					Global.addLog(className + ": Risk is too big");
-					return;
-				}
-
-				sleep(waitingTime);
-			}
-
-			// for outside
-			// if (Global.getCurrentPoint() > Global.getDayHigh()) {
-			// if (GetData.getLongTB().getLatestCandle().getClose() > ohlc + 5)
-			// longContract();
-			// } else if (Global.getCurrentPoint() < Global.getDayLow()) {
-			// if (GetData.getLongTB().getLatestCandle().getClose() < ohlc - 5)
-			// shortContract();
-			//
-			// // for inside
-			// } else {
-			if (GetData.getLongTB().getLatestCandle().getClose() > ohlc)
-			{
-				if (GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6) + 2)
-				{
-					Global.addLog("Not Trending Up: EMA5 < EMA6");
-					return;
-				}
-				longContract();
-			} else if (GetData.getLongTB().getLatestCandle().getClose() < ohlc)
-			{
-				if (GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6) - 2)
-				{
-					Global.addLog("Not Trending Down: EMA5 > EMA6");
-					return;
-				}
-				shortContract();
-			}
-			// }
-		}
-	}
+//	void openOHLC(double ohlc)
+//	{
+//		if (Math.abs(Global.getCurrentPoint() - ohlc) <= 5)
+//		{
+//
+//			Global.addLog(className + ": Entered waiting zone");
+//
+//			waitForANewCandle();
+//
+//			// wait until it standing firmly
+//			while (Math.abs(GetData.getLongTB().getLatestCandle().getClose() - ohlc) <= 5)
+//				sleep(waitingTime);
+//
+//			Global.addLog(className + ": Waiting for a pull back");
+//			// in case it get too fast, wait until it come back, just like
+//			// second corner but a little bit earlier
+//			while (Math.abs(Global.getCurrentPoint() - ohlc) > 5)
+//			{
+//				if (Math.abs(Global.getCurrentPoint() - ohlc) > 50)
+//				{
+//					Global.addLog(className + ": Risk is too big");
+//					return;
+//				}
+//
+//				sleep(waitingTime);
+//			}
+//
+//			// for outside
+//			// if (Global.getCurrentPoint() > Global.getDayHigh()) {
+//			// if (GetData.getLongTB().getLatestCandle().getClose() > ohlc + 5)
+//			// longContract();
+//			// } else if (Global.getCurrentPoint() < Global.getDayLow()) {
+//			// if (GetData.getLongTB().getLatestCandle().getClose() < ohlc - 5)
+//			// shortContract();
+//			//
+//			// // for inside
+//			// } else {
+//			if (GetData.getLongTB().getLatestCandle().getClose() > ohlc)
+//			{
+//				if (GetData.getLongTB().getEMA(5) < GetData.getLongTB().getEMA(6) + 2)
+//				{
+//					Global.addLog("Not Trending Up: EMA5 < EMA6");
+//					return;
+//				}
+//				longContract();
+//			} else if (GetData.getLongTB().getLatestCandle().getClose() < ohlc)
+//			{
+//				if (GetData.getLongTB().getEMA(5) > GetData.getLongTB().getEMA(6) - 2)
+//				{
+//					Global.addLog("Not Trending Down: EMA5 > EMA6");
+//					return;
+//				}
+//				shortContract();
+//			}
+//			// }
+//		}
+//	}
 
 	public void waitForANewCandle()
 	{

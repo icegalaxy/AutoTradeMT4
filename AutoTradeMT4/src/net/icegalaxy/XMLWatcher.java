@@ -14,117 +14,22 @@ public class XMLWatcher implements Runnable
 
 	public static List<Stair> stairs = new CopyOnWriteArrayList<Stair>();
 
-//	public static IntraDayReader intraDay;
-//	public static IntraDayReader ema;
-//	XMLReader ohlc;
+
+	static MyFile Stair = new MyFile("\\MT4\\stair.csv");
 	
-//	static MyFile intraDayXML = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\Intraday.xml");
-//	static MyFile OHLC = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\FHIdata.xml");
-//	static MyFile EMA = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\EMA.xml");
-	static MyFile Stair = new MyFile("\\TradeData\\stair.csv");
-	
-//	static MyFile csvLog = new MyFile("C:\\Users\\joech\\Dropbox\\TradeData\\csvLog " + Global.getToday() + ".csv");
 	static MyFile csvLog;
 	
 	public static ArrayList<MyFile> files = new ArrayList<MyFile>();
 	
-//	static String intraDayXMLPath = "C:\\Users\\joech\\Dropbox\\TradeData\\Intraday.xml";
-//	static String OHLCPath = "C:\\Users\\joech\\Dropbox\\TradeData\\FHIdata.xml";
-//	static String EMAPath = "C:\\Users\\joech\\Dropbox\\TradeData\\EMA.xml";
-//	static String StairPath = "C:\\Users\\joech\\Dropbox\\TradeData\\stair.csv";
-
-//	public static boolean M5EMA50;
-//	public static boolean M5EMA250;
-//	public static boolean EMAbuying;
-//	public static boolean EMAselling;
-//	public static double EMAstair = 0;
-//	public static double EMAstopEarn = 0;
-//
-//	public static double rangeResist = 0;
-//	public static double rangeSupport = 0;
-//
-//	public static boolean ibtRise;
-//	public static boolean ibtDrop;
-//
-//	public static OHLC open;
-//	public static OHLC pHigh;
-//	public static OHLC pLow;
-//	public static OHLC pClose;
-//	public static OHLC mySupport;
-//	public static OHLC myResist;
-//	public static OHLC mySAR;
-//
-//	public static OHLC[] ohlcs;
-//
-//	public static double SAR = 0;
-//	public static double cutLoss = 0;
-//	public static double stopEarn = 0;
-//	public static double reverse = 0;
-//	public static boolean buying;
-//	public static boolean selling;
 	public static double stair = 0;
-
-//	private long intraDayModifiedTime;
-//	private long FHIDataModifiedTime;
-//	private long EMAModifiedTime;
-//	private long stairModifiedTime;
 
 	private int secCounter;
 
 	public XMLWatcher()
 	{
 
-//		files.add(intraDayXML);
-//		files.add(OHLC);
-//		files.add(EMA);
 		files.add(Stair);
-//		files.add(csvLog);
-		
-//		for (MyFile x: files)
-//		{
-		// Done in the constructor of MyFile
-//			x.previousModifiedTime = x.lastModified();
-//		}
-		
-//		intraDayModifiedTime = new File(intraDayXMLPath).lastModified() / 60000;
-//		FHIDataModifiedTime = new File(OHLCPath).lastModified() / 60000;
-//		EMAModifiedTime = new File(EMAPath).lastModified() / 60000;
-//		stairModifiedTime = new File(StairPath).lastModified() / 60000;
 
-		// stairs = new ArrayList<Stair>(); not created here, should be created
-		// everytime updated.
-
-//		intraDay = new IntraDayReader(Global.getToday(), intraDayXML.pathName);
-
-//		open = new OHLC();
-//		open.name = "Open";
-//		pHigh = new OHLC();
-//		pHigh.name = "pHigh";
-//		pLow = new OHLC();
-//		pLow.name = "pLow";
-//		pClose = new OHLC();
-//		pClose.name = "pClose";
-//		mySupport = new OHLC();
-//		mySupport.name = "mySupport";
-//		myResist = new OHLC();
-//		myResist.name = "myResist";
-//		mySAR = new OHLC();
-//		mySAR.name = "SAR";
-
-//		ema = new IntraDayReader(Global.getToday(), EMA.pathName);
-
-		// ohlc = new XMLReader(Global.getToday(), OHLCPath);
-		// using today
-		// ohlc = new XMLReader("Today", OHLCPath);
-		// ohlcs = new OHLC[5];
-		//
-		// ohlcs[0] = pHigh;
-		// ohlcs[1] = pLow;
-		// ohlcs[2] = pClose;
-		// ohlcs[3] = mySupport;
-		// ohlcs[4] = myResist;
-
-		// ohlc.findOHLC();
 	}
 
 	public void run()
@@ -140,36 +45,7 @@ public class XMLWatcher implements Runnable
 			sleep(30000);
 		}
 
-		// reset XMLWatcher
-//		XMLWatcher.updateIntraDayXML("stair", "0");
-//		XMLWatcher.updateIntraDayXML("cutLoss", "0");
-//		XMLWatcher.updateIntraDayXML("stopEarn", "0");
-//		XMLWatcher.updateIntraDayXML("rangeResist", "0");
-//		XMLWatcher.updateIntraDayXML("rangeSupport", "0");
-//		XMLWatcher.updateIntraDayXML("SAR", "0");
-//		XMLWatcher.updateIntraDayXML("buying", "false");
-//		XMLWatcher.updateIntraDayXML("selling", "false");
 
-//		try
-//		{
-//			updateEMAXML("stair", "0");
-//			updateEMAXML("stopEarn", "0");
-//			updateEMAXML("buying", "false");
-//			updateEMAXML("selling", "false");
-//			updateEMAXML("M5EMA50", "false");
-//			updateEMAXML("M5EMA250", "false");
-//		} catch (Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//
-//		setOHLC();
-
-//		RuleSAR sar = new RuleSAR(true);
-//		RuleRR rr = new RuleRR(true);
-//		RuleIBT ibt = new RuleIBT(true);
-//		RuleRange range = new RuleRange(true);
-//		RuleM5EMA m5ema = new RuleM5EMA(true);
 		RuleSkyStair ss = new RuleSkyStair(true);
 		RuleSkyStairNano na = new RuleSkyStairNano(true);
 //		RuleSkyStair5Min pa = new RuleSkyStair5Min(true);
@@ -218,39 +94,6 @@ public class XMLWatcher implements Runnable
 			{
 				secCounter = 0;
 
-//				if (intraDayXML.isFileModified())
-//				{
-//					intraDay.findElementOfToday();
-//					intraDay.findOHLC();
-//
-//					stair = Double.parseDouble(intraDay.getValueOfNode("stair"));
-//					rangeResist = intraDay.rangeResist;
-//					rangeSupport = intraDay.rangeSupport;
-//					SAR = Double.parseDouble(intraDay.getValueOfNode("SAR"));
-//					cutLoss = Double.parseDouble(intraDay.getValueOfNode("cutLoss"));
-//					stopEarn = Double.parseDouble(intraDay.getValueOfNode("stopEarn"));
-//					reverse = Double.parseDouble(intraDay.getValueOfNode("reverse"));
-//					buying = Boolean.parseBoolean(intraDay.getValueOfNode("buying"));
-//					selling = Boolean.parseBoolean(intraDay.getValueOfNode("selling"));
-//
-//					mySAR.position = SAR;
-//
-//					Global.addLog("--------------------");
-//					Global.addLog("CutLoss/StopEarn: " + cutLoss + "/" + stopEarn);
-//					Global.addLog("--------------------");
-//				}
-//
-//				if (OHLC.isFileModified())
-//					setOHLC();
-
-//				try
-//				{
-//					if (EMA.isFileModified())
-//						setEMA();
-//				} catch (Exception x)
-//				{
-//					x.printStackTrace();
-//				}
 
 				if (Stair.isFileModified())
 				{

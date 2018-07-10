@@ -384,11 +384,13 @@ public abstract class Rules implements Runnable
 	public boolean isOrderTime()
 	{
 
+		/*
 		int time = TimePeriodDecider.getTime();
 
 		// System.out.println("Check: " + time + morningOpen + morningClose +
 		// noonOpen + noonClose);
 
+		
 		if (time > morningOpen && time < morningClose)
 			return true;
 		else if (time > noonOpen && time < noonClose)
@@ -397,6 +399,10 @@ public abstract class Rules implements Runnable
 			return true;
 		else
 			return false;
+			*/
+		
+		//for MT4 forex
+		return true;
 	}
 
 	protected void updateCutLoss()

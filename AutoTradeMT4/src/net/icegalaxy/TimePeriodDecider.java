@@ -1,4 +1,4 @@
-package net.icegalaxy;
+ package net.icegalaxy;
 
 import java.time.Instant;
 
@@ -39,7 +39,12 @@ public class TimePeriodDecider implements Runnable
 
 		System.out.println("Program Started");
 		
-
+		Global.setRunning(true);
+		Global.setTradeTime(true);
+		Global.setOrderTime(true);
+		
+		
+/*
 		while (getTime() < nightClose)
 //		while (getTime() < dayClose)
 		{
@@ -146,6 +151,8 @@ public class TimePeriodDecider implements Runnable
 		Global.setRunning(false);
 		
 		SPApi.unInit();
+		
+		*/
 
 		System.out.println("Program Ended");
 		// Sikuli.closeWindow();

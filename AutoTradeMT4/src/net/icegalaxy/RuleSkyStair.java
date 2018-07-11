@@ -52,7 +52,7 @@ public class RuleSkyStair extends Rules
 				return;
 
 			if (XMLWatcher.stairs.get(currentStairIndex).value == 0
-					|| Math.abs(localShutdownPt - Global.getCurrentPoint()) < 50)
+					|| Math.abs(localShutdownPt - Global.getCurrentPoint()) < MT4Puller.pipValue * 100)
 				continue;
 			else
 				localShutdownPt = 0;
@@ -96,7 +96,7 @@ public class RuleSkyStair extends Rules
 					if (shutdownLong(currentStairIndex))
 						return;
 					
-					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + 50)
+					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + MT4Puller.pipValue * 100)
 					{
 						Global.addLog("Left");
 						return;
@@ -136,7 +136,7 @@ public class RuleSkyStair extends Rules
 					
 
 //					currentStair = XMLWatcher.stairs.get(currentStairIndex);
-					//dont need this beause EMA >50
+					//dont need this beause EMA >MT4Puller.pipValue * 100
 //					while (GetData.getShortTB().getRSI() > 40)
 //					{
 //						if (shutdownLong(currentStairIndex))
@@ -160,7 +160,7 @@ public class RuleSkyStair extends Rules
 //						&& GetData.tinyHL.volumeOfRefLow > GetData.tinyHL.getVolumeOfRecentHigh() * 1.5)
 //						break;
 //					
-////					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + 50)
+////					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + MT4Puller.pipValue * 100)
 ////					{
 ////						Global.addLog("Left");
 ////						return;
@@ -336,7 +336,7 @@ public class RuleSkyStair extends Rules
 					if (shutdownShort(currentStairIndex))
 						return;
 					
-					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - 50)
+					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - MT4Puller.pipValue * 100)
 					{
 						Global.addLog("Left");
 						return;
@@ -389,7 +389,7 @@ public class RuleSkyStair extends Rules
 //							&& GetData.tinyHL.volumeOfRefHigh > GetData.tinyHL.getVolumeOfRecentLow() * 1.5)
 //						break;
 //					
-////					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - 50)
+////					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - MT4Puller.pipValue * 100)
 ////					{
 ////						Global.addLog("Left");
 ////						return;
@@ -506,7 +506,7 @@ public class RuleSkyStair extends Rules
 
 				trailingUp(2);
 
-//				if (refHigh > XMLWatcher.stairs.get(currentStairIndex).value + 50)
+//				if (refHigh > XMLWatcher.stairs.get(currentStairIndex).value + MT4Puller.pipValue * 100)
 //				{
 //					Global.addLog("RefHigh out of range");
 //					XMLWatcher.stairs.get(currentStairIndex).selling = false;
@@ -947,13 +947,13 @@ public class RuleSkyStair extends Rules
 			// }
 			//
 			// // Try to take profit if blocked by EMA
-			// if (GetData.getLongTB().getEma50().getEMA() - buyingPoint > 50)
+			// if (GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA() - buyingPoint > MT4Puller.pipValue * 100)
 			// {
-			// return GetData.getLongTB().getEma50().getEMA() - buyingPoint;
-			// } else if (GetData.getLongTB().getEma250().getEMA() - buyingPoint
-			// > 50)
+			// return GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA() - buyingPoint;
+			// } else if (GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA() - buyingPoint
+			// > MT4Puller.pipValue * 100)
 			// {
-			// return GetData.getLongTB().getEma250().getEMA() - buyingPoint;
+			// return GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA() - buyingPoint;
 			// }
 
 			return Math.max(10, getLongStopEarn(XMLWatcher.stairs.get(currentStairIndex).value) - buyingPoint);
@@ -974,13 +974,13 @@ public class RuleSkyStair extends Rules
 			// }
 			//
 			// // Try to take profit if blocked by EMA
-			// if (buyingPoint - GetData.getLongTB().getEma50().getEMA() > 50)
+			// if (buyingPoint - GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA() > MT4Puller.pipValue * 100)
 			// {
-			// return buyingPoint - GetData.getLongTB().getEma50().getEMA();
-			// } else if (buyingPoint - GetData.getLongTB().getEma250().getEMA()
-			// > 50)
+			// return buyingPoint - GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA();
+			// } else if (buyingPoint - GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA()
+			// > MT4Puller.pipValue * 100)
 			// {
-			// return buyingPoint - GetData.getLongTB().getEma250().getEMA();
+			// return buyingPoint - GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA();
 			// }
 
 			return Math.max(10, buyingPoint - getShortStopEarn(XMLWatcher.stairs.get(currentStairIndex).value));
@@ -1042,12 +1042,12 @@ public class RuleSkyStair extends Rules
 	// if (EMATimer > 60) //don't want to check too frequently
 	// {
 	// if (XMLWatcher.stairs.get(0).value !=
-	// GetData.getLongTB().getEma50().getEMA())
-	// XMLWatcher.stairs.get(0).value = GetData.getLongTB().getEma50().getEMA();
+	// GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA())
+	// XMLWatcher.stairs.get(0).value = GetData.getLongTB().getEmaMT4Puller.pipValue * 100().getEMA();
 	// if (XMLWatcher.stairs.get(1).value !=
-	// GetData.getLongTB().getEma250().getEMA())
+	// GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA())
 	// XMLWatcher.stairs.get(1).value =
-	// GetData.getLongTB().getEma250().getEMA();
+	// GetData.getLongTB().getEma2MT4Puller.pipValue * 100().getEMA();
 	//
 	// EMATimer = 0;
 	// }

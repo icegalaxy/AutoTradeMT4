@@ -51,7 +51,7 @@ public class RuleSkyStair1Min extends Rules
 				return;
 
 			if (XMLWatcher.stairs.get(currentStairIndex).value == 0
-					|| Math.abs(localShutdownPt - Global.getCurrentPoint()) < 50)
+					|| Math.abs(localShutdownPt - Global.getCurrentPoint()) < MT4Puller.pipValue * 100)
 				continue;
 			else
 				localShutdownPt = 0;
@@ -91,7 +91,7 @@ public class RuleSkyStair1Min extends Rules
 					if (shutdownLong(currentStairIndex))
 						return;
 					
-					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + 50)
+					if (Global.getCurrentPoint() > XMLWatcher.stairs.get(currentStairIndex).value + MT4Puller.pipValue * 100)
 					{
 						Global.addLog("Left");
 						return;
@@ -204,7 +204,7 @@ public class RuleSkyStair1Min extends Rules
 					if (shutdownShort(currentStairIndex))
 						return;
 					
-					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - 50)
+					if (Global.getCurrentPoint() < XMLWatcher.stairs.get(currentStairIndex).value - MT4Puller.pipValue * 100)
 					{
 						Global.addLog("Left");
 						return;

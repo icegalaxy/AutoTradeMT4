@@ -34,6 +34,7 @@ public class MT4Puller implements Runnable {
 
 	private double currentBid;
 	private double currentAsk;
+	public static double pipValue;
 
 	public static ArrayList<Candle> previousCandles;
 	public static boolean MT4PullerReady;
@@ -98,6 +99,8 @@ public class MT4Puller implements Runnable {
 		// Get all EMA;
 		// Get all MACD;
 
+		requestPipValue();
+		
 		requestData(1);
 		requestData(5);
 		requestData(15);
@@ -142,16 +145,19 @@ public class MT4Puller implements Runnable {
 		switch (timeFrame) {
 		case 1:
 			pos = 0;
+			GetData.getShortTB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		case 5:
 			pos = 1;
+			GetData.getLongTB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		case 15:
 			pos = 2;
+			GetData.getM15TB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		}
 
-		GetData.getShortTB().addCandle(getLastCandle(product, timeFrame));
+		
 		RSIs[pos] = requestRSI(timeFrame, 14);
 		for (int i = 0; i < GetData.EMAList.length; i++)
 			EMAs[pos][i] = requestEMA(timeFrame, GetData.EMAList[i]);
@@ -222,6 +228,15 @@ public class MT4Puller implements Runnable {
 		String rsiString = remote_send(reqSocket, request.getBytes());
 
 		return Double.parseDouble(rsiString);
+
+	}
+	
+	private void requestPipValue() {
+		String request = "TI|PIP|" + product;
+
+		String rsiString = remote_send(reqSocket, request.getBytes());
+
+		pipValue = Double.parseDouble(rsiString);
 
 	}
 

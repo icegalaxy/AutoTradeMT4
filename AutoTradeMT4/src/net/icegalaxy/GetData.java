@@ -88,7 +88,7 @@ public class GetData implements Runnable
 
 		// sec10TB = new TimeBase();
 
-		qp = new QuotePower();
+//		qp = new QuotePower();
 		// sec5TB = new TimeBase();
 
 		shortData = new CandleData();
@@ -193,16 +193,16 @@ public class GetData implements Runnable
 
 				
 				// this is for quote power
-				if (!getIndex())
-				{
-					SPApi.unSubscribePrice();
-					samePointCount = 0;
-					sleep(10000);
-					SPApi.subscribePrice();
-					sleep(10000);
-					
-					continue;
-				}
+//				if (!getIndex())
+//				{
+////					SPApi.unSubscribePrice();
+//					samePointCount = 0;
+//					sleep(10000);
+////					SPApi.subscribePrice();
+//					sleep(10000);
+//					
+//					continue;
+//				}
 				
 				if (Global.getCurrentPoint() != previousPoint)
 				{
@@ -362,11 +362,11 @@ public class GetData implements Runnable
 				if (shortMinutes >= 1)
 				{
 
-					if (Global.getOpen() == 0)
-					{
-						Global.setOpen(SPApi.getAPIPrice().Open);
-						Global.addLog("Set open after 91500 at: " + Global.getOpen());
-					}
+//					if (Global.getOpen() == 0)
+//					{
+//						Global.setOpen(SPApi.getAPIPrice().Open);
+//						Global.addLog("Set open after 91500 at: " + Global.getOpen());
+//					}
 
 					for (MyFile file: XMLWatcher.files)
 					{
@@ -387,7 +387,7 @@ public class GetData implements Runnable
 					// if (Global.isNoonOpened)
 					// setNoonOpen();
 
-					getShortTB().addData(point);
+//					getShortTB().addData(point);
 
 //					getShortTB().addCandle(getTime(), shortData.periodHigh, shortData.periodLow, shortData.openPt,
 //							point, totalQuantity);
@@ -398,10 +398,10 @@ public class GetData implements Runnable
 					minuteHigh = 0;
 					minuteLow = 99999;
 
-					for (int x = 0; x < shortTB.EMAs.length; x++)
-						shortTB.EMAs[x].setlatestEMA(point);
+//					for (int x = 0; x < shortTB.EMAs.length; x++)
+//						shortTB.EMAs[x].setlatestEMA(point);
 
-					System.out.println(getTime() + " " + point);
+					System.out.println(getTime() + " " + Global.getCurrentPoint());
 					// System.out.println("MA10: " + getShortTB().getMA(10));
 					// System.out.println("MA20: " + getShortTB().getMA(20));
 
@@ -420,19 +420,19 @@ public class GetData implements Runnable
 					}
 
 					//check connection
-					if (!Global.isConnectionOK())
-					{
-						Global.addLog("Conncetion fail, try re-login");
-						
-						SPApi.unInit();
-						
-						sleep(10000);
-						
-						SPApi.init();
-						
-						sleep(20000);
-					}
-					
+//					if (!Global.isConnectionOK())
+//					{
+//						Global.addLog("Conncetion fail, try re-login");
+//						
+//						SPApi.unInit();
+//						
+//						sleep(10000);
+//						
+//						SPApi.init();
+//						
+//						sleep(20000);
+//					}
+//					
 					
 
 					// if (Global.getAOH() == 0)
@@ -453,7 +453,7 @@ public class GetData implements Runnable
 						e.printStackTrace();
 					}
 
-					getM15TB().addData(point);
+//					getM15TB().addData(point);
 
 //					getM15TB().addCandle(getTime(), m15Data.periodHigh, m15Data.periodLow, m15Data.openPt, point,
 //							totalQuantity);
@@ -466,11 +466,11 @@ public class GetData implements Runnable
 				if (longMinutes >= 5)
 				{
 
-					for (int x = 0; x < longTB.EMAs.length; x++)
-						longTB.EMAs[x].setlatestEMA(point);
+//					for (int x = 0; x < longTB.EMAs.length; x++)
+//						longTB.EMAs[x].setlatestEMA(point);
 
 					// addDat = addPoint + quantity
-					getLongTB().addData(point);
+//					getLongTB().addData(point);
 
 //					getLongTB().addCandle(getTime(), longData.periodHigh, longData.periodLow, longData.openPt, point,
 //							totalQuantity);
@@ -673,7 +673,7 @@ public class GetData implements Runnable
 
 		}
 
-		Global.addLog("Previous m1_EMA250: " + getEma250().getEMA());
+	//	Global.addLog("Previous m1_EMA250: " + getShortTB().getEma250().getEMA());
 
 		try
 		{

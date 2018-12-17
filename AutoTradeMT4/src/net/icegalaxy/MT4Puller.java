@@ -20,7 +20,7 @@ public class MT4Puller implements Runnable {
 //	byte[] eurusd_closebuy_order = "TRADE|CLOSE|0|EURUSD|0|50|50|Python-to-MT4".getBytes();
 	// byte[] get_data = "DATA|GBPUSD|PERIOD_M5|D'2018.06.15 00:00:00'|D'2018.07.02
 	// 00:00:00'".getBytes();
-	byte[] get_data = "DATA|GBPUSD|1|0|10".getBytes();
+	byte[] get_data = "DATA|GBPUSD|1|0|2000".getBytes();
 
 	/*
 	 * byte[] get_dataH = "DATA|GBPUSD|1|H|0|2000".getBytes(); byte[] get_dataL =
@@ -71,6 +71,8 @@ public class MT4Puller implements Runnable {
 	@Override
 	public void run() {
 
+		System.out.print("0");
+		
 		String data = remote_send(reqSocket, get_data);
 
 		/*
@@ -83,6 +85,8 @@ public class MT4Puller implements Runnable {
 		// System.out.print(O);
 
 		// String[] Os = O.split("\\|");
+		
+		System.out.print("1");
 
 		String[] candles = data.split("~");
 
@@ -94,6 +98,8 @@ public class MT4Puller implements Runnable {
 					Double.parseDouble(ohlc[3]), Double.parseDouble(ohlc[4]), Integer.parseInt(ohlc[5]));
 			previousCandles.add(c);
 		}
+		
+		System.out.print("2");
 
 		// Get all RSI;
 		// Get all EMA;
@@ -101,7 +107,12 @@ public class MT4Puller implements Runnable {
 
 		requestPipValue();
 		
+		System.out.print("3");
+		
 		requestData(1);
+		
+		System.out.print("4")
+		;
 		requestData(5);
 		requestData(15);
 
@@ -114,14 +125,17 @@ public class MT4Puller implements Runnable {
 			if (epochSec % 60 == 0) {
 				// every minute
 				requestData(1);
+				addCandle(1);
 
 				if (epochSec % 300 == 0) {
 					// every 5 minute
 					requestData(5);
+					addCandle(5);
 
 					if (epochSec % 900 == 0) {
 						// every 15 minute
 						requestData(15);
+						addCandle(15);
 
 					}
 				}
@@ -141,26 +155,40 @@ public class MT4Puller implements Runnable {
 	private void requestData(int timeFrame) {
 
 		int pos = -1;
-
 		switch (timeFrame) {
 		case 1:
 			pos = 0;
-			GetData.getShortTB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		case 5:
 			pos = 1;
-			GetData.getLongTB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		case 15:
 			pos = 2;
-			GetData.getM15TB().addCandle(getLastCandle(product, timeFrame));
 			break;
 		}
-
+		
 		
 		RSIs[pos] = requestRSI(timeFrame, 14);
 		for (int i = 0; i < GetData.EMAList.length; i++)
 			EMAs[pos][i] = requestEMA(timeFrame, GetData.EMAList[i]);
+	}
+
+	private void addCandle(int timeFrame) {
+
+		switch (timeFrame) {
+		case 1:
+			GetData.getShortTB().addCandle(getLastCandle(product, timeFrame)); 
+			break;
+		case 5:
+
+			GetData.getLongTB().addCandle(getLastCandle(product, timeFrame));
+			break;
+		case 15:
+
+			GetData.getM15TB().addCandle(getLastCandle(product, timeFrame));
+			break;
+		}
+
 	}
 
 	// Function to send commands to ZeroMQ MT4 EA
@@ -186,6 +214,7 @@ public class MT4Puller implements Runnable {
 
 			Global.setCurrentBid(currentBid);
 			Global.setCurrentBid(currentAsk);
+			Global.setCurrentPoint((currentAsk + currentAsk) / 2);
 
 			// System.out.println(new String(msg));
 		} catch (Exception e) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TimeBase {
 	
-	public EMA[] EMAs = new EMA[6];
+	public EMA[] EMAs;
 	
 	ArrayList<Double> point = new ArrayList<Double>();
 	ArrayList<Float> quantity = new ArrayList<Float>();
@@ -47,6 +47,8 @@ public class TimeBase {
 
 		this.upRails.add(new Rail(1.0D, true, 1));
 		this.downRails.add(new Rail(1.0D, false, 1));
+		
+		EMAs = new EMA[6];
 		
 		
 	}
@@ -574,37 +576,37 @@ public class TimeBase {
 	
 	public EMA getEma5()
 	{
-		EMAs[0].currentEMA = MT4Puller.getEMA(baseMin,5);
+		EMAs[0] = new EMA(MT4Puller.getEMA(baseMin,5));
 		return EMAs[0];
 	}
 
 	public EMA getEma25()
 	{
-		EMAs[1].currentEMA = MT4Puller.getEMA(baseMin,25);
+		EMAs[1] = new EMA(MT4Puller.getEMA(baseMin,25));
 		return EMAs[1];
 	}
 
 	public EMA getEma50()
 	{
-		EMAs[2].currentEMA = MT4Puller.getEMA(baseMin,50);
+		EMAs[2] = new EMA(MT4Puller.getEMA(baseMin,50));
 		return EMAs[2];
 	}
 
 	public EMA getEma100()
 	{
-		EMAs[3].currentEMA = MT4Puller.getEMA(baseMin,100);
+		EMAs[3] =  new EMA(MT4Puller.getEMA(baseMin,100));
 		return EMAs[3];
 	}
 
 	public EMA getEma250()
 	{
-		EMAs[4].currentEMA = MT4Puller.getEMA(baseMin,250);
+		EMAs[4] =  new EMA(MT4Puller.getEMA(baseMin,250));
 		return EMAs[4];
 	}
 
 	public EMA getEma1200()
 	{
-		EMAs[5].currentEMA = MT4Puller.getEMA(baseMin,1200);
+		EMAs[5] =  new EMA(MT4Puller.getEMA(baseMin,1200));
 		return EMAs[5];
 	}
 

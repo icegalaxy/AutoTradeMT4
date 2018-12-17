@@ -40,6 +40,8 @@ public class Setting extends JFrame {
 	private static int shortTB;
 	private static int mediumTB;
 	private static int longTB;
+	
+	GetData gd;
 
 	public Setting() {
 		super("Auto Trade System");
@@ -106,7 +108,7 @@ public class Setting extends JFrame {
 				System.setProperty("java.library.path", myLibraryPath);
 				
 				
-				XMLWatcher.csvLog = new MyFile("\\MT4\\csvLog " + getToday() + ".csv");
+				XMLWatcher.csvLog = new MyFile("MT4\\csvLog " + getToday() + ".csv");
 				XMLWatcher.csvLog.fileString.append("Time,Caller,Message,Remark\r\n");
 				XMLWatcher.files.add(XMLWatcher.csvLog);
 				
@@ -127,21 +129,34 @@ public class Setting extends JFrame {
 //					
 //				}
 
-				while (getTimeInt() > 1010000 || getTimeInt() < 90001){
-					System.out.println(getTimeInt() + ": Sleep for 5 min");
-					try {
-						Thread.sleep(300000);
-					} catch (InterruptedException e2) {
-						e2.printStackTrace();
-					}
-					
-				}
+//				while (getTimeInt() > 1010000 || getTimeInt() < 90001){
+//					System.out.println(getTimeInt() + ": Sleep for 5 min");
+//					try {
+//						Thread.sleep(300000);
+//					} catch (InterruptedException e2) {
+//						e2.printStackTrace();
+//					}
+//					
+//				}
+				
+				gd = new GetData();
 				
 				MT4Puller mt4 = new MT4Puller();
 				
 				Thread tMt4 = new Thread(mt4);
 				tMt4.start();
-			
+		
+				while (!MT4Puller.MT4PullerReady)
+				{
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
 				
 				//Global.setCurrentPoint(SPApi.getAPIPrice().Last[0]); //don't know if this is necessary, try to test if the API is functioning
 				
@@ -191,7 +206,7 @@ public class Setting extends JFrame {
 //		RuleRSI rsi = new RuleRSI(false);
 //		LoginThread login = new LoginThread();
 		TimePeriodDecider tpd = new TimePeriodDecider();
-		GetData gd = new GetData();
+		
 //		RuleAOH aoh = new RuleAOH(true);
 //		RuleAOL aol = new RuleAOL(true);
 //		RulePClose pClose = new RulePClose(false);

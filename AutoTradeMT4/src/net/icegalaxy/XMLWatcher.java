@@ -15,7 +15,7 @@ public class XMLWatcher implements Runnable
 	public static List<Stair> stairs = new CopyOnWriteArrayList<Stair>();
 
 
-	static MyFile Stair = new MyFile("\\MT4\\stair.csv");
+	static MyFile Stair = new MyFile("MT4\\stair.csv");
 	
 	static MyFile csvLog;
 	
@@ -84,11 +84,11 @@ public class XMLWatcher implements Runnable
 		while (Global.isRunning())
 		{
 
-			if (GetData.getTimeInt() > 91420 && Global.getOpen() == 0)
-			{
-				setOpenPrice();
-				Global.addLog("Open: " + Global.getOpen());
-			}
+//			if (GetData.getTimeInt() > 91420 && Global.getOpen() == 0)
+//			{
+////				setOpenPrice();
+//				Global.addLog("Open: " + Global.getOpen());
+//			}
 
 			if (secCounter >= 10)
 			{
@@ -144,8 +144,8 @@ public class XMLWatcher implements Runnable
 //			{
 				stairs.get(s).buying = true;
 				stairs.get(s).selling = true;
-				stairs.get(s).refHigh = 0;
-				stairs.get(s).refLow = 99999;
+//				stairs.get(s).refHigh = 0;
+//				stairs.get(s).refLow = 99999;
 				stairs.get(s).reActivateTime = 0;
 				stairs.get(s).shutdown = false;
 //			}

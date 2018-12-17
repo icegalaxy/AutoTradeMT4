@@ -8,6 +8,13 @@ public class EMA
 	private int period;
 	public double currentEMA;
 
+	
+	
+	public EMA(double ema)
+	{
+		currentEMA = ema;
+	}
+	
 	public EMA(double previousDayEMA, int period)
 	{
 		EMAs = new ArrayList<Double>();
